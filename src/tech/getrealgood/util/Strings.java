@@ -23,6 +23,28 @@ public final class Strings {
     }
 
     /**
+     *
+     * @param s
+     * @return
+     * @throws StringsException
+     */
+    public static List<String> toUpper(List<String> s) throws StringsException {
+
+        if (Objects.isNull(s))
+            throw new StringsException("Null parameter passed in for s");
+
+        var result = new ArrayList<String>(s.size());
+
+        for (var s1: s) {
+
+            result.add(toUpper(s1));
+        }
+
+        return result;
+
+    }
+
+    /**
      * @param s
      * @return
      */
@@ -30,6 +52,28 @@ public final class Strings {
         if (Objects.isNull(s))
             throw new StringsException("Null parameter passed in for s");
         return s.toLowerCase();
+
+    }
+
+    /**
+     *
+     * @param s
+     * @return
+     * @throws StringsException
+     */
+    public static List<String> toLower(List<String> s) throws StringsException {
+
+        if (Objects.isNull(s))
+            throw new StringsException("Null parameter passed in for s");
+
+        var result = new ArrayList<String>(s.size());
+
+        for (var s1: s) {
+
+            result.add(toLower(s1));
+        }
+
+        return result;
 
     }
 
@@ -46,7 +90,7 @@ public final class Strings {
         if(s.length() == 0)
             return new ArrayList<>(0);
 
-        List<String> result = Arrays.asList(s.split(String.valueOf(token)));
+        List<String> result = Arrays.<String>asList(s.split(String.valueOf(token)));
 
         if (trim) {
             result = result.stream().map(String::trim).collect(Collectors.toList());
@@ -66,7 +110,7 @@ public final class Strings {
         if (Objects.isNull(s))
             throw new StringsException("Null parameter passed in for s");
 
-        String result = "";
+        String result = new String("");
         int counter = 0;
         int length = s.size() - 1;
 
