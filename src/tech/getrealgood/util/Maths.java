@@ -255,7 +255,7 @@ public final class Maths {
      */
     public static double subtract(double value, double... vars) throws MathsException {
         if (Objects.isNull(vars))
-            return value;
+            throw new MathsException("Null vars value passed in");
 
         if (vars.length == 0)
             return value;
@@ -545,9 +545,12 @@ public final class Maths {
             }
 
             var partOne = -b;
-            var partTwo = Math.sqrt(
+            var minus =
                     subtractAndCheckOverflow(multiplyAndCheckOverflow(b, b),
-                            multiplyAndCheckOverflow(4.00D, multiplyAndCheckOverflow(a, c))));
+                            multiplyAndCheckOverflow(4.00D, multiplyAndCheckOverflow(a, c)));
+            if (minus < 0)
+                throw new MathsException("No real-number solution to the quadratic equation");
+            var partTwo = Math.sqrt(minus);
             var partThree = multiplyAndCheckOverflow(2.00D, a);
 
             result.add(0, (divideAndCheckOverflow(addAndCheckOverflow(partOne, partTwo), partThree)));
